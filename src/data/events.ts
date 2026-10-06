@@ -20,91 +20,88 @@ export type NpasEvent = {
 
 export const events: NpasEvent[] = [
   {
-    slug: "space-week",
+    slug: "orientation",
     number: "01",
+    title: "Orientation",
+    tag: "Welcome",
+    date: "TBA", // TODO
+    venue: "TBA", // TODO
+    format: "Introductory session", // TODO: confirm
+    summary:
+      "Meet NPAS: who we are, what is planned this year, and how to get involved.", // TODO: confirm
+    description: ["TODO: Describe Orientation. What happens, who it is for, and why someone should not miss it."],
+    registerUrl: "", // TODO: paste the registration form link
+    photos: [],
+  },
+  {
+    slug: "space-week",
+    number: "02",
     title: "Space Week",
     tag: "Flagship",
     date: "TBA", // TODO
     venue: "NUST H-12, Islamabad",
-    format: "Talks, exhibitions, competitions, night sky observation",
+    format: "Talks, exhibitions, competitions, night sky observation", // TODO: confirm
     summary:
-      "A week of talks, telescope nights, competitions and exhibitions. The biggest space event on campus.",
-    description: [
-      "TODO: Describe Space Week. What happens each day, who it is for, and why someone should not miss it.",
-      "TODO: Mention speakers, competitions and anything new this year.",
-    ],
+      "A week of talks, telescope nights, competitions and exhibitions. The biggest space event on campus.", // TODO: confirm
+    description: ["TODO: Describe Space Week. What happens, who it is for, and why someone should not miss it."],
     registerUrl: "", // TODO: paste the registration form link
     photos: [],
     flagship: true,
   },
   {
-    slug: "stargazing-night",
-    number: "02",
-    title: "Stargazing Night",
-    tag: "Outdoor",
-    date: "TBA", // TODO
-    venue: "TBA", // TODO
-    format: "Telescope session under the night sky",
-    summary:
-      "Telescopes, a dark sky and people who know where to point them. Planets, the Moon and deep sky objects.",
-    description: ["TODO: Describe Stargazing Night."],
-    registerUrl: "",
-    photos: [],
-  },
-  {
-    slug: "astrophotography-workshop",
+    slug: "qiskit-fall-fest",
     number: "03",
-    title: "Astrophotography Workshop",
-    tag: "Hands-on",
+    title: "Qiskit Fall Fest",
+    tag: "Quantum",
     date: "TBA", // TODO
     venue: "TBA", // TODO
-    format: "Workshop",
+    format: "Workshops and challenges", // TODO: confirm
     summary:
-      "Learn to photograph the night sky with the camera you already have, from settings to stacking.",
-    description: ["TODO: Describe the Astrophotography Workshop."],
-    registerUrl: "",
+      "Our part in IBM's global Qiskit Fall Fest: hands-on quantum computing workshops and challenges.", // TODO: confirm
+    description: ["TODO: Describe Qiskit Fall Fest. What happens, who it is for, and why someone should not miss it."],
+    registerUrl: "", // TODO: paste the registration form link
     photos: [],
   },
   {
-    slug: "guest-lecture-series",
+    slug: "feynmans-circles",
     number: "04",
-    title: "Guest Lecture Series",
-    tag: "Talks",
+    title: "Feynman's Circles",
+    tag: "Discussion",
     date: "TBA", // TODO
     venue: "TBA", // TODO
-    format: "Lectures and Q&A",
+    format: "Discussion sessions", // TODO: confirm
     summary:
-      "Researchers and scientists on black holes, exoplanets, cosmology and the physics that ties it together.",
-    description: ["TODO: Describe the Guest Lecture Series."],
-    registerUrl: "",
+      "Open discussions on physics, asked and answered the way Feynman would have liked: with curiosity.", // TODO: confirm
+    description: ["TODO: Describe Feynman's Circles. What happens, who it is for, and why someone should not miss it."],
+    registerUrl: "", // TODO: paste the registration form link
     photos: [],
   },
   {
-    slug: "physics-olympiad",
+    slug: "astrotrek",
     number: "05",
-    title: "Physics Olympiad",
-    tag: "Competition",
+    title: "AstroTrek",
+    tag: "Trip",
     date: "TBA", // TODO
     venue: "TBA", // TODO
-    format: "Competition",
+    format: "Trip", // TODO: confirm
     summary:
-      "Problem solving under pressure. Test your physics against the best students on campus.",
-    description: ["TODO: Describe the Physics Olympiad."],
-    registerUrl: "",
+      "A trek away from the city lights for a night under a sky full of stars.", // TODO: confirm
+    description: ["TODO: Describe AstroTrek. What happens, who it is for, and why someone should not miss it."],
+    registerUrl: "", // TODO: paste the registration form link
     photos: [],
   },
   {
-    slug: "observatory-trip",
+    slug: "farewell",
     number: "06",
-    title: "Observatory Trip",
-    tag: "Field trip",
+    title: "Farewell",
+    tag: "Send-off",
     date: "TBA", // TODO
     venue: "TBA", // TODO
-    format: "Field trip",
+    format: "Social", // TODO: confirm
     summary:
-      "A trip out of the city lights to see real research telescopes and a sky full of stars.",
-    description: ["TODO: Describe the Observatory Trip."],
-    registerUrl: "",
+      "One last night together to send off our graduating members.", // TODO: confirm
+    description: ["TODO: Describe Farewell. What happens, who it is for, and why someone should not miss it."],
+    registerUrl: "", // TODO: paste the registration form link
     photos: [],
   },
 ];

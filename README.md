@@ -15,9 +15,9 @@ Deploys to Vercel with no extra settings.
 ## How the home page works
 
 1. **Hero**: a looping space video (`public/video/hero.*`).
-2. **Text band**: a giant line slides left as you scroll and lights up character by character (`src/components/TextBand.tsx`).
-3. **Rocket scroll**: the section stays pinned while scrolling scrubs through the space video, frame by frame (`public/sequence/`). The event list sits on the left and the card on the right follows the active event (`src/components/RocketScroll.tsx`).
-4. **Warp**: clicking an event plays the fast burst from the video, then opens the event page (`src/components/Warp.tsx`).
+2. **Text banner**: a giant line loops sideways on its own like a ticker. Letters are solid on the left and fade out to the right (`src/components/TextBand.tsx`).
+3. **Events journey**: the section stays pinned and shows one event at a time in space. Scrolling to the next event fires a hyperspace jump: the stars streak past, the current event flies by and the next one arrives. Scrolling up jumps backwards (`src/components/EventsJourney.tsx`, stars in `src/lib/starfield.ts`).
+4. **Warp**: clicking an event plays the fast burst from the space video, then opens the event page (`src/components/Warp.tsx`).
 
 ## Editing content
 
@@ -37,4 +37,4 @@ Event photos go in `public/events/<slug>/` and are listed in that event's `photo
 scripts/make-media.sh path/to/new-video.mp4
 ```
 
-This rebuilds the hero loop, the warp clip and the scroll frames. Requires `ffmpeg`. The script header explains which frame ranges are used.
+This rebuilds the hero loop and the warp clip. Requires `ffmpeg`. The script header explains which frame ranges are used.

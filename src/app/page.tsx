@@ -1,7 +1,7 @@
 import { FinalCta, Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Nav } from "@/components/Nav";
-import { RocketScroll } from "@/components/RocketScroll";
+import { EventsJourney } from "@/components/EventsJourney";
 import { TextBand } from "@/components/TextBand";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
       <main>
         <Hero />
         <TextBand />
-        <RocketScroll />
+        <EventsJourney />
         <FinalCta />
       </main>
       <Footer />

@@ -74,63 +74,22 @@ export function EventsJourney() {
         />
         <canvas ref={canvas} aria-hidden className="absolute inset-0 h-full w-full" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--color-bg)_100%)]" />
-        <div className="absolute inset-y-0 left-0 hidden w-[520px] bg-gradient-to-r from-bg/90 to-transparent md:block" />
-
-        {/* HUD */}
-        <div className="label absolute right-6 top-24 flex gap-6 text-[11px] text-muted sm:right-16">
-          <span>
-            Event {events[active].number} / {String(events.length).padStart(2, "0")}
-          </span>
-          <span ref={hud} className="hidden sm:inline">
-            VEL 6.0 KM/S
-          </span>
-        </div>
-
         <div className="relative mx-auto h-full max-w-[1440px] px-6 sm:px-16">
-          {/* Event index (left) */}
-          <div className="absolute left-6 top-24 hidden w-[380px] md:block lg:left-16 lg:top-32">
-            <p className="label mb-3 pl-4 text-muted">02&nbsp;&nbsp;/&nbsp;&nbsp;Mission log</p>
-            <h2 className="mb-6 pl-4 font-display text-4xl font-bold tracking-tight lg:text-5xl">
-              Our events
-            </h2>
-            <ul className="space-y-1">
-              {events.map((e, i) => {
-                const on = i === active;
-                return (
-                  <li key={e.slug}>
-                    <button
-                      onClick={() => go(i)}
-                      className={`group relative flex w-full items-center gap-4 rounded-xl px-4 py-2.5 text-left transition-colors ${
-                        on ? "bg-surface-2/70" : "hover:bg-surface-2/40"
-                      }`}
-                    >
-                      <span
-                        className={`absolute left-0 top-1/2 h-7 w-[3px] -translate-y-1/2 rounded bg-accent transition-opacity ${
-                          on ? "opacity-100" : "opacity-0"
-                        }`}
-                      />
-                      <span className={`label text-[11px] ${on ? "text-accent" : "text-faint"}`}>
-                        {e.number}
-                      </span>
-                      <span
-                        className={`font-display font-semibold transition-colors ${
-                          on ? "text-lg text-ink" : "text-base text-muted group-hover:text-ink"
-                        }`}
-                      >
-                        {e.title}
-                      </span>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
+          {/* The nav hides while this section is pinned, so these sit at the very top. */}
+          <h2 className="absolute left-6 top-8 font-display text-2xl font-bold tracking-tight sm:left-16 sm:top-10 sm:text-3xl">
+            Our events
+          </h2>
+          <div className="label absolute right-6 top-10 flex gap-6 text-[11px] text-muted sm:right-16 sm:top-12">
+            <span>
+              {events[active].number} / {String(events.length).padStart(2, "0")}
+            </span>
+            <span ref={hud} className="hidden sm:inline">
+              VEL 6.0 KM/S
+            </span>
           </div>
 
           {/* The events themselves, stacked. Only the active one is visible. */}
-          <p className="label absolute left-6 top-24 text-muted md:hidden">
-            02&nbsp;&nbsp;/&nbsp;&nbsp;Our events
-          </p>
-          <div className="absolute inset-x-6 bottom-0 top-0 md:left-[440px] md:right-16 lg:left-[520px]">
+          <div className="absolute inset-x-6 bottom-0 top-0 sm:inset-x-16">
             {events.map((e, i) => {
               const state = i === active ? "here" : i < active ? "passed" : "ahead";
               return (
@@ -153,10 +112,10 @@ export function EventsJourney() {
                   <p className="label text-accent">
                     Event {e.number}&nbsp;&nbsp;/&nbsp;&nbsp;{e.tag}
                   </p>
-                  <h3 className="mt-5 font-display text-[clamp(2rem,8.2vw,6.5rem)] font-bold leading-[0.95] tracking-[-0.04em]">
+                  <h3 className="mt-5 font-display text-[clamp(2rem,7vw,7rem)] font-bold leading-[0.95] tracking-[-0.04em]">
                     {e.title}
                   </h3>
-                  <p className="mt-6 max-w-[520px] text-lg leading-relaxed text-muted">{e.summary}</p>
+                  <p className="mt-6 max-w-[560px] text-lg leading-relaxed text-muted">{e.summary}</p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     {e.flagship && <Button href={site.registerHref}>Register for Space Week</Button>}
                     <button

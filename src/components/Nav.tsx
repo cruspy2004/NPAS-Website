@@ -38,10 +38,21 @@ export function Logo() {
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [immersive, setImmersive] = useState(false);
   const warp = useWarp();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      // Hide the nav while the events journey fills the screen.
+      const ev = document.getElementById("events");
+      if (ev) {
+        const r = ev.getBoundingClientRect();
+        setImmersive(r.top <= 1 && r.bottom >= window.innerHeight - 1);
+      } else {
+        setImmersive(false);
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -59,9 +70,9 @@ export function Nav() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,transform,opacity] duration-500 ${
           scrolled && !open ? "bg-bg/70 backdrop-blur-md" : ""
-        }`}
+        } ${immersive && !open ? "pointer-events-none -translate-y-full opacity-0" : ""}`}
       >
         <nav className="mx-auto flex h-20 items-center gap-3 px-4 sm:px-10">
           <Logo />

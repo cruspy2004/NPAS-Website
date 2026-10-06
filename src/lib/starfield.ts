@@ -4,7 +4,7 @@
 
 type Star = { x: number; y: number; z: number; b: number; violet: boolean };
 
-const IDLE_SPEED = 0.05; // depth units per second
+const IDLE_SPEED = 0.09; // depth units per second: a steady cruise
 const JUMP_SPEED = 2.6;
 export const JUMP_MS = 1100;
 const NEAR = 0.04;

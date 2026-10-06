@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { events } from "@/data/events";
 import { site } from "@/lib/site";
 import { Arrow } from "./Button";
@@ -38,24 +38,36 @@ export function Logo() {
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [immersive, setImmersive] = useState(false);
+  const header = useRef<HTMLElement>(null);
   const warp = useWarp();
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
-      // Hide the nav while the events journey fills the screen.
+      // Slide the nav up gradually as the events section takes over the
+      // screen, and bring it back down gradually as that section leaves.
+      const el = header.current;
       const ev = document.getElementById("events");
+      if (!el) return;
+      let hide = 0;
       if (ev) {
         const r = ev.getBoundingClientRect();
-        setImmersive(r.top <= 1 && r.bottom >= window.innerHeight - 1);
-      } else {
-        setImmersive(false);
+        const range = window.innerHeight * 0.45;
+        const entering = 1 - r.top / range;
+        const leaving = (r.bottom - (window.innerHeight - range)) / range;
+        hide = Math.min(1, Math.max(0, Math.min(entering, leaving)));
       }
+      el.style.transform = `translate3d(0, ${-hide * 100}%, 0)`;
+      el.style.opacity = String(1 - hide);
+      el.style.pointerEvents = hide > 0.5 ? "none" : "";
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -70,9 +82,10 @@ export function Nav() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,transform,opacity] duration-500 ${
+        ref={header}
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
           scrolled && !open ? "bg-bg/70 backdrop-blur-md" : ""
-        } ${immersive && !open ? "pointer-events-none -translate-y-full opacity-0" : ""}`}
+        }`}
       >
         <nav className="mx-auto flex h-20 items-center gap-3 px-4 sm:px-10">
           <Logo />

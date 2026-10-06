@@ -74,9 +74,23 @@ export function EventsJourney() {
         />
         <canvas ref={canvas} aria-hidden className="absolute inset-0 h-full w-full" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--color-bg)_100%)]" />
+        {/* Cockpit window: corner brackets and side ticks frame the view. */}
+        <div aria-hidden className="pointer-events-none absolute inset-4 sm:inset-8">
+          {[
+            "left-0 top-0 border-l border-t rounded-tl-2xl",
+            "right-0 top-0 border-r border-t rounded-tr-2xl",
+            "bottom-0 left-0 border-b border-l rounded-bl-2xl",
+            "bottom-0 right-0 border-b border-r rounded-br-2xl",
+          ].map((c) => (
+            <span key={c} className={`absolute h-10 w-10 border-ink/30 sm:h-16 sm:w-16 ${c}`} />
+          ))}
+          <span className="absolute left-0 top-1/2 hidden h-px w-10 -translate-y-1/2 bg-ink/25 sm:block" />
+          <span className="absolute right-0 top-1/2 hidden h-px w-10 -translate-y-1/2 bg-ink/25 sm:block" />
+        </div>
+
         <div className="relative mx-auto h-full max-w-[1440px] px-6 sm:px-16">
           {/* The nav hides while this section is pinned, so these sit at the very top. */}
-          <h2 className="absolute left-6 top-8 font-display text-2xl font-bold tracking-tight sm:left-16 sm:top-10 sm:text-3xl">
+          <h2 className="absolute left-8 top-9 font-display text-2xl font-bold tracking-tight sm:left-16 sm:top-10 sm:text-3xl">
             Our events
           </h2>
           <div className="label absolute right-6 top-10 flex gap-6 text-[11px] text-muted sm:right-16 sm:top-12">
@@ -96,7 +110,7 @@ export function EventsJourney() {
                 <article
                   key={e.slug}
                   aria-hidden={state !== "here"}
-                  className="absolute inset-0 flex flex-col justify-center"
+                  className="absolute inset-0 flex flex-col items-center justify-center text-center"
                   style={{
                     opacity: state === "here" ? 1 : 0,
                     transform:
@@ -112,11 +126,11 @@ export function EventsJourney() {
                   <p className="label text-accent">
                     Event {e.number}&nbsp;&nbsp;/&nbsp;&nbsp;{e.tag}
                   </p>
-                  <h3 className="mt-5 font-display text-[clamp(2rem,7vw,7rem)] font-bold leading-[0.95] tracking-[-0.04em]">
+                  <h3 className="mt-5 max-w-[760px] font-display text-[clamp(2rem,4.6vw,4.25rem)] font-bold leading-[1.02] tracking-[-0.035em]">
                     {e.title}
                   </h3>
-                  <p className="mt-6 max-w-[560px] text-lg leading-relaxed text-muted">{e.summary}</p>
-                  <div className="mt-8 flex flex-wrap gap-3">
+                  <p className="mt-5 max-w-[480px] text-base leading-relaxed text-muted sm:text-lg">{e.summary}</p>
+                  <div className="mt-8 flex flex-wrap justify-center gap-3">
                     {e.flagship && <Button href={site.registerHref}>Register for Space Week</Button>}
                     <button
                       tabIndex={state === "here" ? 0 : -1}

@@ -13,7 +13,7 @@ import {
 import { events } from "@/data/events";
 import { getLenis } from "./SmoothScroll";
 
-// The fast "burst" part of the space video (4.0s to 6.5s) plays as a
+// The fast "burst" part of the space video (4.0s to 6.5s) plays at 2x as a
 // hyperspace jump, then we navigate to the event page underneath it.
 
 type WarpFn = (href: string, label: string) => void;
@@ -59,7 +59,7 @@ export function WarpLink({
   );
 }
 
-const NAVIGATE_AT_MS = 1300;
+const NAVIGATE_AT_MS = 650;
 
 type Phase = "idle" | "jumping" | "arriving";
 
@@ -86,6 +86,7 @@ export function WarpProvider({ children }: { children: React.ReactNode }) {
       const v = videoRef.current;
       if (v) {
         v.currentTime = 0;
+        v.playbackRate = 2; // burst plays twice as fast to match the shorter warp
         v.play().catch(() => {});
       }
       window.setTimeout(() => router.push(href), NAVIGATE_AT_MS);
@@ -112,7 +113,7 @@ export function WarpProvider({ children }: { children: React.ReactNode }) {
   // (that bug left the invisible overlay blocking every click).
   useEffect(() => {
     if (phase !== "arriving") return;
-    const t = window.setTimeout(() => setPhase("idle"), 950);
+    const t = window.setTimeout(() => setPhase("idle"), 475);
     return () => window.clearTimeout(t);
   }, [phase]);
 
@@ -123,7 +124,7 @@ export function WarpProvider({ children }: { children: React.ReactNode }) {
       {children}
       <div
         aria-hidden={!active}
-        className={`fixed inset-0 z-[100] overflow-hidden bg-bg transition-opacity duration-[900ms] ${
+        className={`fixed inset-0 z-[100] overflow-hidden bg-bg transition-opacity duration-[450ms] ${
           phase === "jumping" ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
@@ -133,7 +134,7 @@ export function WarpProvider({ children }: { children: React.ReactNode }) {
           playsInline
           preload="auto"
           className={`absolute inset-0 h-full w-full object-cover transition-transform ease-in ${
-            phase === "jumping" ? "scale-[1.35] duration-[1400ms]" : "scale-100 duration-0"
+            phase === "jumping" ? "scale-[1.35] duration-[700ms]" : "scale-100 duration-0"
           }`}
         >
           <source src="/video/warp.webm" type="video/webm" />
@@ -143,8 +144,8 @@ export function WarpProvider({ children }: { children: React.ReactNode }) {
         <div
           className={`absolute left-1/2 top-1/2 h-[70vmax] w-[70vmax] -translate-x-1/2 -translate-y-1/2 rounded-full transition-all ease-in ${
             phase === "jumping"
-              ? "scale-100 opacity-100 delay-[700ms] duration-[600ms]"
-              : "scale-0 opacity-0 duration-300"
+              ? "scale-100 opacity-100 delay-[350ms] duration-[300ms]"
+              : "scale-0 opacity-0 duration-150"
           }`}
           style={{
             background:

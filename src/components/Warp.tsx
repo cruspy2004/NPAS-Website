@@ -89,23 +89,32 @@ export function WarpProvider({ children }: { children: React.ReactNode }) {
         v.play().catch(() => {});
       }
       window.setTimeout(() => router.push(href), NAVIGATE_AT_MS);
+      // Safety net: never leave the overlay up if navigation stalls.
+      window.setTimeout(() => {
+        setPhase((p) => (p === "jumping" ? "idle" : p));
+        getLenis()?.start();
+      }, NAVIGATE_AT_MS + 4000);
     },
     [phase, router],
   );
 
-  // Once the new route is mounted, fade the overlay out.
+  // Once the new route is mounted, start fading the overlay out.
   useEffect(() => {
     if (phase !== "jumping" || !target.current) return;
     if (target.current.split("#")[0] !== pathname) return;
     target.current = null;
     getLenis()?.start();
-    const t1 = window.setTimeout(() => setPhase("arriving"), 50);
-    const t2 = window.setTimeout(() => setPhase("idle"), 1000);
-    return () => {
-      window.clearTimeout(t1);
-      window.clearTimeout(t2);
-    };
+    const t = window.setTimeout(() => setPhase("arriving"), 50);
+    return () => window.clearTimeout(t);
   }, [pathname, phase]);
+
+  // Finish the fade on its own timer so a phase change can't cancel it
+  // (that bug left the invisible overlay blocking every click).
+  useEffect(() => {
+    if (phase !== "arriving") return;
+    const t = window.setTimeout(() => setPhase("idle"), 950);
+    return () => window.clearTimeout(t);
+  }, [phase]);
 
   const active = phase !== "idle";
 
@@ -114,9 +123,9 @@ export function WarpProvider({ children }: { children: React.ReactNode }) {
       {children}
       <div
         aria-hidden={!active}
-        className={`pointer-events-none fixed inset-0 z-[100] overflow-hidden bg-bg transition-opacity duration-[900ms] ${
-          phase === "jumping" ? "opacity-100" : "opacity-0"
-        } ${active ? "pointer-events-auto" : ""}`}
+        className={`fixed inset-0 z-[100] overflow-hidden bg-bg transition-opacity duration-[900ms] ${
+          phase === "jumping" ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        }`}
       >
         <video
           ref={videoRef}

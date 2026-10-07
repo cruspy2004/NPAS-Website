@@ -6,7 +6,7 @@ import { events } from "@/data/events";
 import { site } from "@/lib/site";
 import { Arrow } from "./Button";
 import { getLenis } from "./SmoothScroll";
-import { useWarp } from "./Warp";
+import { useWarp, WarpLink } from "./Warp";
 
 const links = [
   { label: "Events", href: "/#events" },
@@ -113,14 +113,14 @@ export function Nav() {
               </Link>
             ))}
           </div>
-          <Link
+          <WarpLink
             href={site.registerHref}
             className="group ml-auto inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-medium text-bg transition-colors hover:bg-white sm:px-5"
           >
             <span className="sm:hidden">Register</span>
             <span className="hidden sm:inline">Register for Space Week</span>
             <Arrow />
-          </Link>
+          </WarpLink>
         </nav>
       </header>
 

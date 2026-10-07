@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { WarpLink } from "./Warp";
 
 type Props = {
   href: string;
@@ -55,8 +55,8 @@ export function Button({
     );
   }
   return (
-    <Link href={href} className={cls}>
+    <WarpLink href={href} className={cls}>
       {inner}
-    </Link>
+    </WarpLink>
   );
 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { events } from "@/data/events";
 import { site } from "@/lib/site";
 import { Button } from "./Button";
+import { WarpLink } from "./Warp";
 
 export function FinalCta() {
   return (
@@ -35,10 +37,17 @@ export function Footer() {
             {site.location}
           </p>
         </div>
+        <FooterCol title="Events">
+          {events.map((e) => (
+            <WarpLink key={e.slug} href={`/events/${e.slug}`}>
+              {e.title}
+            </WarpLink>
+          ))}
+        </FooterCol>
         <FooterCol title="Site">
           <Link href="/#events">Events</Link>
           <Link href="/#about">About</Link>
-          <Link href={site.registerHref}>Space Week</Link>
+          <WarpLink href={site.registerHref}>Register</WarpLink>
         </FooterCol>
         <FooterCol title="Social">
           {site.socials.map((s) => (

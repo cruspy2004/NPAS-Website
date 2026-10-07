@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/Button";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
+import { WarpLink } from "@/components/Warp";
 import { events, getEvent } from "@/data/events";
 
 export function generateStaticParams() {
@@ -136,7 +137,7 @@ export default async function EventPage(props: PageProps<"/events/[slug]">) {
           </section>
         )}
 
-        <Link
+        <WarpLink
           href={`/events/${next.slug}`}
           className="group block bg-surface transition-colors hover:bg-surface-2"
         >
@@ -147,7 +148,7 @@ export default async function EventPage(props: PageProps<"/events/[slug]">) {
               <span className="inline-block transition-transform group-hover:translate-x-2">→</span>
             </p>
           </div>
-        </Link>
+        </WarpLink>
       </main>
       <div className="pt-20">
         <Footer />

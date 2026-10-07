@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
@@ -9,6 +10,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { events } from "@/data/events";
 import { getLenis } from "./SmoothScroll";
 
 // The fast "burst" part of the space video (4.0s to 6.5s) plays as a
@@ -20,6 +22,41 @@ const WarpContext = createContext<WarpFn>(() => {});
 
 export function useWarp() {
   return useContext(WarpContext);
+}
+
+/**
+ * Link that plays the warp when it leads to an event page. Any other link (or
+ * a link to the page you are already on, or a ctrl/cmd click) behaves normally.
+ */
+export function WarpLink({
+  href,
+  label,
+  className,
+  children,
+}: {
+  href: string;
+  label?: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const warp = useWarp();
+  const pathname = usePathname();
+  const path = href.split("#")[0];
+  const ev = events.find((e) => `/events/${e.slug}` === path);
+  return (
+    <Link
+      href={href}
+      className={className}
+      onClick={(e) => {
+        if (!ev || path === pathname) return;
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
+        warp(href, label ?? ev.title);
+      }}
+    >
+      {children}
+    </Link>
+  );
 }
 
 const NAVIGATE_AT_MS = 1300;

@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 import { JUMP_MS, Starfield } from "@/lib/starfield";
 import { useScrollProgress } from "@/lib/useScrollProgress";
 import { Arrow, Button } from "./Button";
-import { useWarp } from "./Warp";
+import { useWarp, WarpLink } from "./Warp";
 
 // Pinned section. Each event owns a slice of the scroll. Crossing into the
 // next slice fires a hyperspace jump: the stars streak past, the current
@@ -126,9 +126,11 @@ export function EventsJourney() {
                   <p className="label text-accent">
                     Event {e.number}&nbsp;&nbsp;/&nbsp;&nbsp;{e.tag}
                   </p>
-                  <h3 className="mt-5 max-w-[760px] font-display text-[clamp(2rem,4.6vw,4.25rem)] font-bold leading-[1.02] tracking-[-0.035em]">
-                    {e.title}
-                  </h3>
+                  <WarpLink href={`/events/${e.slug}`} className="transition-opacity hover:opacity-80">
+                    <h3 className="mt-5 max-w-[760px] font-display text-[clamp(2rem,4.6vw,4.25rem)] font-bold leading-[1.02] tracking-[-0.035em]">
+                      {e.title}
+                    </h3>
+                  </WarpLink>
                   <p className="mt-5 max-w-[480px] text-base leading-relaxed text-muted sm:text-lg">{e.summary}</p>
                   <div className="mt-8 flex flex-wrap justify-center gap-3">
                     {e.flagship && <Button href={site.registerHref}>Register for Space Week</Button>}

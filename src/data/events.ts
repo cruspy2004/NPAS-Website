@@ -11,8 +11,10 @@ export type NpasEvent = {
   format: string;
   summary: string;
   description: string[];
-  /** External registration link. Empty string shows "registration opens soon". */
-  registerUrl: string;
+  /** Registration buttons (e.g. separate Google Forms). Empty shows "registration opens soon". */
+  register: { label: string; href: string }[];
+  /** Optional list of what happens at the event. */
+  highlights?: { name: string; note?: string }[];
   /** Paths under /public. Gallery is hidden while empty. */
   photos: string[];
   flagship?: boolean;
@@ -30,7 +32,7 @@ export const events: NpasEvent[] = [
     summary:
       "Meet NPAS: who we are, what is planned this year, and how to get involved.", // TODO: confirm
     description: ["TODO: Describe Orientation. What happens, who it is for, and why someone should not miss it."],
-    registerUrl: "", // TODO: paste the registration form link
+    register: [], // TODO: add registration form links
     photos: [],
   },
   {
@@ -40,11 +42,24 @@ export const events: NpasEvent[] = [
     tag: "Flagship",
     date: "TBA", // TODO
     venue: "NUST H-12, Islamabad",
-    format: "Talks, exhibitions, competitions, night sky observation", // TODO: confirm
+    format: "Three days: Astronomy Night, Apollo's Eye, Movie Night, a guest lecture and research modules",
     summary:
-      "A week of talks, telescope nights, competitions and exhibitions. The biggest space event on campus.", // TODO: confirm
-    description: ["TODO: Describe Space Week. What happens, who it is for, and why someone should not miss it."],
-    registerUrl: "", // TODO: paste the registration form link
+      "Embark on a three-day voyage across the cosmos with NPAS Space Week. For the curious, the dreamers, and everyone who has ever looked up and wondered.",
+    description: [
+      "NPAS Space Week is a three-day celebration of space and astronomy, featuring a variety of engaging modules and activities for everyone curious about the universe. The event includes our flagship Astronomy Night, the much-anticipated Apollo's Eye, an exciting Movie Night, an insightful guest lecture, and several interactive research and learning modules.",
+      "Join us for three days of exploration, discovery, and a closer look at the wonders of the cosmos.",
+    ],
+    highlights: [
+      { name: "Astronomy Night", note: "Flagship" },
+      { name: "Apollo's Eye" },
+      { name: "Movie Night" },
+      { name: "Guest Lecture" },
+      { name: "Research and Learning Modules" },
+    ],
+    register: [
+      { label: "Register as a NUSTian", href: "https://forms.gle/Ww9CpHHdsPA4NY7FA" },
+      { label: "Register as a non-NUSTian", href: "https://forms.gle/KVMB1z1PmgKYyFzY6" },
+    ],
     photos: [],
     flagship: true,
   },
@@ -59,7 +74,7 @@ export const events: NpasEvent[] = [
     summary:
       "Our part in IBM's global Qiskit Fall Fest: hands-on quantum computing workshops and challenges.", // TODO: confirm
     description: ["TODO: Describe Qiskit Fall Fest. What happens, who it is for, and why someone should not miss it."],
-    registerUrl: "", // TODO: paste the registration form link
+    register: [], // TODO: add registration form links
     photos: [],
   },
   {
@@ -73,7 +88,7 @@ export const events: NpasEvent[] = [
     summary:
       "Open discussions on physics, asked and answered the way Feynman would have liked: with curiosity.", // TODO: confirm
     description: ["TODO: Describe Feynman's Circles. What happens, who it is for, and why someone should not miss it."],
-    registerUrl: "", // TODO: paste the registration form link
+    register: [], // TODO: add registration form links
     photos: [],
   },
   {
@@ -87,7 +102,7 @@ export const events: NpasEvent[] = [
     summary:
       "A trek away from the city lights for a night under a sky full of stars.", // TODO: confirm
     description: ["TODO: Describe AstroTrek. What happens, who it is for, and why someone should not miss it."],
-    registerUrl: "", // TODO: paste the registration form link
+    register: [], // TODO: add registration form links
     photos: [],
   },
   {
@@ -101,7 +116,7 @@ export const events: NpasEvent[] = [
     summary:
       "One last night together to send off our graduating members.", // TODO: confirm
     description: ["TODO: Describe Farewell. What happens, who it is for, and why someone should not miss it."],
-    registerUrl: "", // TODO: paste the registration form link
+    register: [], // TODO: add registration form links
     photos: [],
   },
 ];

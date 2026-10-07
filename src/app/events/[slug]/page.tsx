@@ -61,6 +61,14 @@ export default async function EventPage(props: PageProps<"/events/[slug]">) {
                 </span>
               ))}
             </div>
+            {ev.register.length > 0 && (
+              <div
+                className="animate-rise mt-8 flex flex-wrap gap-3"
+                style={{ animationDelay: "240ms" }}
+              >
+                <RegisterButtons links={ev.register} />
+              </div>
+            )}
           </div>
         </section>
 
@@ -75,6 +83,22 @@ export default async function EventPage(props: PageProps<"/events/[slug]">) {
                 </p>
               ))}
             </div>
+            {ev.highlights && (
+              <div className="mt-14">
+                <p className="label mb-6 text-muted">What&apos;s on</p>
+                <ul className="divide-y divide-line border-y border-line">
+                  {ev.highlights.map((h, i) => (
+                    <li key={h.name} className="flex items-baseline gap-6 py-5">
+                      <span className="label text-[11px] text-faint">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="font-display text-xl font-semibold sm:text-2xl">{h.name}</span>
+                      {h.note && <span className="label ml-auto text-[11px] text-accent">{h.note}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           <aside
@@ -84,10 +108,10 @@ export default async function EventPage(props: PageProps<"/events/[slug]">) {
             <Detail label="Date" value={ev.date === "TBA" ? "To be announced" : ev.date} />
             <Detail label="Venue" value={ev.venue === "TBA" ? "To be announced" : ev.venue} />
             <Detail label="Format" value={ev.format} />
-            {ev.registerUrl ? (
-              <Button href={ev.registerUrl} external className="w-full justify-center">
-                Register now
-              </Button>
+            {ev.register.length > 0 ? (
+              <div className="flex flex-col gap-3">
+                <RegisterButtons links={ev.register} block />
+              </div>
             ) : (
               <p className="rounded-xl bg-surface-2 px-4 py-3.5 text-center text-sm text-muted">
                 Registration opens soon
@@ -139,4 +163,18 @@ function Detail({ label, value }: { label: string; value: string }) {
       <p className="mt-1.5 text-[17px] font-medium">{value}</p>
     </div>
   );
+}
+
+function RegisterButtons({
+  links,
+  block,
+}: {
+  links: { label: string; href: string }[];
+  block?: boolean;
+}) {
+  return links.map((l) => (
+    <Button key={l.href} href={l.href} external className={block ? "w-full justify-center" : ""}>
+      {l.label}
+    </Button>
+  ));
 }

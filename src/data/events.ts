@@ -57,7 +57,7 @@ export const events: NpasEvent[] = [
       { name: "Research and Learning Modules" },
     ],
     register: [
-      { label: "Register as a NUSTian", href: "https://forms.gle/Ww9CpHHdsPA4NY7FA" },
+      { label: "Register as a NUSTian", href: "https://forms.gle/ALriqS3rzb6ymVav5" },
       { label: "Register as a non-NUSTian", href: "https://forms.gle/KVMB1z1PmgKYyFzY6" },
     ],
     photos: [],
